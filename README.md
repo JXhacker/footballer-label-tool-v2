@@ -20,6 +20,7 @@
 
 推荐运行环境vs
 目录结构为：
+```
   ├── anno
   │   ├── absent
   │   ├── attribute
@@ -28,6 +29,8 @@
   ├── sequences
   │   ├── shot1
   │   └── shot2
+```
+
 图片数据保存在sequences下的文件夹中，程序会根据存放文件的文件夹的名字命名label等文件。
 
 使用过程如下所示：

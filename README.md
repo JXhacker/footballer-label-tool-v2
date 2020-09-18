@@ -42,7 +42,7 @@
 
 - 可以使用上面提示的快捷键进行微调
 
-![example](TFLabelTool\readme\example.png)
+![example](TFLabelTool/readme/example.png)
 
 
 

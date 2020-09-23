@@ -184,11 +184,11 @@
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(50, 22);
+            this.label8.Location = new System.Drawing.Point(0, 22);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(550, 21);
             this.label8.TabIndex = 59;
-            this.label8.Text = "提示：上/下/左/右键选择图片 S/Z/X/C键控制标框大小 8/4/5/6(小键盘)键控制标框位置 Q/W控制标框旋转";
+            this.label8.Text = "提示：上/下/左/右键选择图片 S/Z/X/C键控制标框大小 8/4/5/6(小键盘)或I/J/K/L键控制标框位置 Q/W控制标框旋转";
             this.label8.Visible = true;
 
             // 

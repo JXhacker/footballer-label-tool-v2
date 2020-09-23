@@ -579,7 +579,7 @@ namespace TFLabelTool
                 return base.ProcessCmdKey(ref msg, keyData);
             }
 
-            if (keyData != Keys.NumPad8 && keyData != Keys.NumPad5 && keyData != Keys.NumPad4 && keyData != Keys.NumPad6
+            if (keyData != Keys.NumPad8 && keyData != Keys.NumPad5 && keyData != Keys.NumPad4 && keyData != Keys.NumPad6 && keyData != Keys.I && keyData != Keys.J && keyData != Keys.K && keyData != Keys.L
                 && keyData != Keys.S && keyData != Keys.Z && keyData != Keys.X && keyData != Keys.C && keyData != Keys.Up && keyData != Keys.Down && keyData != Keys.Left && keyData != Keys.Right && keyData != Keys.Q && keyData != Keys.W)
             {
                 return base.ProcessCmdKey(ref msg, keyData); ;
@@ -607,7 +607,7 @@ namespace TFLabelTool
                     double x02 = (x2 + x4) / 2;
                     double y02 = (y2 + y4) / 2;//求矩形中心，求两个是因为减少因小数取整导致的误差。
 
-                    double moveSteps = 2;
+                    double moveSteps = 1;
 
                     switch (keyData)
                     {
@@ -643,36 +643,68 @@ namespace TFLabelTool
                                 x4 += moveSteps;
                             } 
                             break;      // 右
+                        case Keys.I:
+                            {
+                                y1 -= moveSteps;
+                                y2 -= moveSteps;
+                                y3 -= moveSteps;
+                                y4 -= moveSteps;
+                            }
+                            break;
+                        case Keys.K:
+                            {
+                                y1 += moveSteps;
+                                y2 += moveSteps;
+                                y3 += moveSteps;
+                                y4 += moveSteps;
+                            }
+                            break;
+                        case Keys.J:
+                            {
+                                x1 -= moveSteps;
+                                x2 -= moveSteps;
+                                x3 -= moveSteps;
+                                x4 -= moveSteps;
+                            }
+                            break;
+                        case Keys.L:
+                            {
+                                x1 += moveSteps;
+                                x2 += moveSteps;
+                                x3 += moveSteps;
+                                x4 += moveSteps;
+                            }
+                            break;
                         case Keys.S: 
                             { 
-                                x4 = x4 - 2 * (x4 - x1) / (Math.Sqrt(Math.Pow((x4 - x1), 2) + Math.Pow((y4 - y1), 2)));//两倍扩大
-                                y4 = y4 - 2 * (y4 - y1) / (Math.Sqrt(Math.Pow((x4 - x1), 2) + Math.Pow((y4 - y1), 2)));
-                                x3 = x3 - 2 * (x3 - x2) / (Math.Sqrt(Math.Pow((x3 - x2), 2) + Math.Pow((y3 - y2), 2)));
-                                y3 = y3 - 2 * (y3 - y2) / (Math.Sqrt(Math.Pow((x3 - x2), 2) + Math.Pow((y3 - y2), 2)));
+                                x4 = x4 - (x4 - x1) / (Math.Sqrt(Math.Pow((x4 - x1), 2) + Math.Pow((y4 - y1), 2)));//两倍扩大
+                                y4 = y4 - (y4 - y1) / (Math.Sqrt(Math.Pow((x4 - x1), 2) + Math.Pow((y4 - y1), 2)));
+                                x3 = x3 - (x3 - x2) / (Math.Sqrt(Math.Pow((x3 - x2), 2) + Math.Pow((y3 - y2), 2)));
+                                y3 = y3 - (y3 - y2) / (Math.Sqrt(Math.Pow((x3 - x2), 2) + Math.Pow((y3 - y2), 2)));
                             } 
                             break;// w
                         case Keys.X: 
                             {  
-                                x4 = x4 + 2 * (x4 - x1) / (Math.Sqrt(Math.Pow((x4 - x1), 2) + Math.Pow((y4 - y1), 2)));//两倍扩大
-                                y4 = y4 + 2 * (y4 - y1) / (Math.Sqrt(Math.Pow((x4 - x1), 2) + Math.Pow((y4 - y1), 2)));
-                                x3 = x3 + 2 * (x3 - x2) / (Math.Sqrt(Math.Pow((x3 - x2), 2) + Math.Pow((y3 - y2), 2)));
-                                y3 = y3 + 2 * (y3 - y2) / (Math.Sqrt(Math.Pow((x3 - x2), 2) + Math.Pow((y3 - y2), 2)));
+                                x4 = x4 + (x4 - x1) / (Math.Sqrt(Math.Pow((x4 - x1), 2) + Math.Pow((y4 - y1), 2)));//两倍扩大
+                                y4 = y4 + (y4 - y1) / (Math.Sqrt(Math.Pow((x4 - x1), 2) + Math.Pow((y4 - y1), 2)));
+                                x3 = x3 + (x3 - x2) / (Math.Sqrt(Math.Pow((x3 - x2), 2) + Math.Pow((y3 - y2), 2)));
+                                y3 = y3 + (y3 - y2) / (Math.Sqrt(Math.Pow((x3 - x2), 2) + Math.Pow((y3 - y2), 2)));
                             } 
                             break;     // s
                         case Keys.Z: 
                             { 
-                                x2 = x2 - 2 * (x2 - x1) / (Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2)));//两倍扩大
-                                y2 = y2 - 2 * (y2 - y1) / (Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2)));
-                                x3 = x3 - 2 * (x3 - x4) / (Math.Sqrt(Math.Pow((x3 - x4), 2) + Math.Pow((y3 - y4), 2)));
-                                y3 = y3 - 2 * (y3 - y4) / (Math.Sqrt(Math.Pow((x3 - x4), 2) + Math.Pow((y3 - y4), 2)));
+                                x2 = x2 - (x2 - x1) / (Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2)));//两倍扩大
+                                y2 = y2 - (y2 - y1) / (Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2)));
+                                x3 = x3 - (x3 - x4) / (Math.Sqrt(Math.Pow((x3 - x4), 2) + Math.Pow((y3 - y4), 2)));
+                                y3 = y3 - (y3 - y4) / (Math.Sqrt(Math.Pow((x3 - x4), 2) + Math.Pow((y3 - y4), 2)));
                             } 
                             break;      // a 
                         case Keys.C: 
                             { 
-                                x2 = x2 + 2 * (x2 - x1) / (Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2)));//两倍扩大
-                                y2 = y2 + 2 * (y2 - y1) / (Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2)));
-                                x3 = x3 + 2 * (x3 - x4) / (Math.Sqrt(Math.Pow((x3 - x4), 2) + Math.Pow((y3 - y4), 2)));
-                                y3 = y3 + 2 * (y3 - y4) / (Math.Sqrt(Math.Pow((x3 - x4), 2) + Math.Pow((y3 - y4), 2)));
+                                x2 = x2 + (x2 - x1) / (Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2)));//两倍扩大
+                                y2 = y2 + (y2 - y1) / (Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2)));
+                                x3 = x3 + (x3 - x4) / (Math.Sqrt(Math.Pow((x3 - x4), 2) + Math.Pow((y3 - y4), 2)));
+                                y3 = y3 + (y3 - y4) / (Math.Sqrt(Math.Pow((x3 - x4), 2) + Math.Pow((y3 - y4), 2)));
                             } 
                             break;      // d
                         case Keys.Q:

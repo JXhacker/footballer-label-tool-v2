@@ -1163,77 +1163,50 @@ namespace TFLabelTool
             file.Close();
             if (line != null && line != "")
             {
-                SaveLabelFile2(line);
+                //SaveLabelFile2(line);
                 var status = line.Split(',');
-                if (status[0] == "0")
-                {
-                    checkBox1.CheckState = CheckState.Unchecked;
-                }
-                else
+                checkBox1.CheckState = CheckState.Unchecked;
+                checkBox2.CheckState = CheckState.Unchecked;
+                checkBox3.CheckState = CheckState.Unchecked;
+                checkBox5.CheckState = CheckState.Unchecked;
+                checkBox6.CheckState = CheckState.Unchecked;
+                checkBox7.CheckState = CheckState.Unchecked;
+                checkBox8.CheckState = CheckState.Unchecked;
+                checkBox9.CheckState = CheckState.Unchecked;
+                checkBox10.CheckState = CheckState.Unchecked;
+                if (status[0] == "1")
                 {
                     checkBox1.CheckState = CheckState.Checked;
                 }
-                if (status[1] == "0")
-                {
-                    checkBox2.CheckState = CheckState.Unchecked;
-                }
-                else
+                if (status[1] == "1")
                 {
                     checkBox2.CheckState = CheckState.Checked;
                 }
-                if (status[2] == "0")
-                {
-                    checkBox3.CheckState = CheckState.Unchecked;
-                }
-                else
+                if (status[2] == "1")
                 {
                     checkBox3.CheckState = CheckState.Checked;
                 }
-                if (status[3] == "0")
-                {
-                    checkBox5.CheckState = CheckState.Unchecked;
-                }
-                else
+                if (status[3] == "1")
                 {
                     checkBox5.CheckState = CheckState.Checked;
                 }
-                if (status[4] == "0")
-                {
-                    checkBox6.CheckState = CheckState.Unchecked;
-                }
-                else
+                if (status[4] == "1")
                 {
                     checkBox6.CheckState = CheckState.Checked;
                 }
-                if (status[5] == "0")
-                {
-                    checkBox7.CheckState = CheckState.Unchecked;
-                }
-                else
+                if (status[5] == "1")
                 {
                     checkBox7.CheckState = CheckState.Checked;
                 }
-                if (status[6] == "0")
-                {
-                    checkBox8.CheckState = CheckState.Unchecked;
-                }
-                else
+                if (status[6] == "1")
                 {
                     checkBox8.CheckState = CheckState.Checked;
                 }
-                if (status[7] == "0")
-                {
-                    checkBox9.CheckState = CheckState.Unchecked;
-                }
-                else
+                if (status[7] == "1")
                 {
                     checkBox9.CheckState = CheckState.Checked;
                 }
-                if (status[8] == "0")
-                {
-                    checkBox10.CheckState = CheckState.Unchecked;
-                }
-                else
+                if (status[8] == "1")
                 {
                     checkBox10.CheckState = CheckState.Checked;
                 }
@@ -1241,8 +1214,9 @@ namespace TFLabelTool
             }
             else
             {
-                this.checkBox1.Select();
-                SaveLabelFile("0" , "1");//目标行没有数据默认为无遮挡
+                MessageBox.Show("无数据");
+                //this.checkBox1.Select();
+                //SaveLabelFile("0" , "1");//目标行没有数据默认为无遮挡
             }
         }
 

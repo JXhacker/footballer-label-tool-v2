@@ -3,14 +3,14 @@
     partial class FormMain
     {
         /// <summary>
-        /// 必需的设计器变量。
+        /// Required designer variables
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// 清理所有正在使用的资源。
+        /// Clean up all resources in use
         /// </summary>
-        /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        /// <param name="disposing">If the managed resource should be released, true; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -23,8 +23,7 @@
         #region Windows 窗体设计器生成的代码
 
         /// <summary>
-        /// 设计器支持所需的方法 - 不要
-        /// 使用代码编辑器修改此方法的内容。
+        /// The designer supports the required method-do not use the code editor to modify the contents of this method.
         /// </summary>
         private void InitializeComponent()
         {
@@ -37,6 +36,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.reset = new System.Windows.Forms.Button();
             this.clearBox = new System.Windows.Forms.Button();
+            this.inheritBox = new System.Windows.Forms.Button();
             this.genFile = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.numericUpDownImportHeight = new System.Windows.Forms.NumericUpDown();
@@ -83,6 +83,7 @@
             this.tabPage1.Controls.Add(this.button3);
             this.tabPage1.Controls.Add(this.reset);
             this.tabPage1.Controls.Add(this.clearBox);
+            this.tabPage1.Controls.Add(this.inheritBox);
             this.tabPage1.Controls.Add(this.genFile);
             this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.label8);
@@ -112,7 +113,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(1184, 523);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "标注";
+            this.tabPage1.Text = "label";
             this.tabPage1.UseVisualStyleBackColor = true;
 
 
@@ -139,41 +140,51 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(1085, 22);
+            this.button3.Location = new System.Drawing.Point(1124, 22);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(43, 21);
+            this.button3.Size = new System.Drawing.Size(80, 21);
             this.button3.TabIndex = 41;
-            this.button3.Text = "缩小";
+            this.button3.Text = "shrink";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.reduce_Click);
             // 
             // reset
             // 
-            this.reset.Location = new System.Drawing.Point(1133, 22);
+            this.reset.Location = new System.Drawing.Point(1212, 22);
             this.reset.Name = "reset";
             this.reset.Size = new System.Drawing.Size(43, 21);
             this.reset.TabIndex = 40;
-            this.reset.Text = "重置";
+            this.reset.Text = "reset";
             this.reset.UseVisualStyleBackColor = true;
             this.reset.Click += new System.EventHandler(this.reset_Click);
             //
-            //clear Box 清除框选
+            //clear Box 
             //
-            this.clearBox.Location = new System.Drawing.Point(1181, 22);
+            this.clearBox.Location = new System.Drawing.Point(1263, 22);
             this.clearBox.Name = "clearBox";
-            this.clearBox.Size = new System.Drawing.Size(43, 21);
+            this.clearBox.Size = new System.Drawing.Size(80, 21);
             this.clearBox.TabIndex = 40;
-            this.clearBox.Text = "去框";
+            this.clearBox.Text = "Remove box";
             this.clearBox.UseVisualStyleBackColor = true;
             this.clearBox.Click += new System.EventHandler(this.clearBox_Click);
             //
-            //genFile 生成文件
+            //inherit Box 
+            //
+            this.inheritBox.Location = new System.Drawing.Point(1351, 22);
+            this.inheritBox.Name = "inheritBox";
+            this.inheritBox.Size = new System.Drawing.Size(80, 21);
+            this.inheritBox.TabIndex = 40;
+            this.inheritBox.Text = "Inherit";
+            this.inheritBox.UseVisualStyleBackColor = true;
+            this.inheritBox.Click += new System.EventHandler(this.inheritBox_Click);
+            //
+            //genFile 
             //
             this.genFile.Location = new System.Drawing.Point(1229, 22);
             this.genFile.Name = "genFile";
             this.genFile.Size = new System.Drawing.Size(86, 21);
             this.genFile.TabIndex = 40;
-            this.genFile.Text = "文件生成";
+            this.genFile.Text = "genFile";
             this.genFile.UseVisualStyleBackColor = true;
             this.genFile.Visible = false;
             this.genFile.Click += new System.EventHandler(this.genFile_Click);
@@ -184,11 +195,11 @@
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(0, 22);
+            this.label8.Location = new System.Drawing.Point(0, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(550, 21);
             this.label8.TabIndex = 59;
-            this.label8.Text = "提示：上/下/左/右键选择图片 S/Z/X/C键控制标框大小 8/4/5/6(小键盘)或I/J/K/L键控制标框位置 Q/W控制标框旋转";
+            this.label8.Text = "Tips:Up/Down/Left/Right click to select picture,S/Z/X/C click to control frame size,8/4/5/6(small keyboard)or I/J/K/L key to control frame position,Q/W Control frame rotation";
             this.label8.Visible = true;
 
             // 
@@ -196,9 +207,9 @@
             // 
             this.button1.Location = new System.Drawing.Point(1036, 22);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(43, 21);
+            this.button1.Size = new System.Drawing.Size(80, 21);
             this.button1.TabIndex = 39;
-            this.button1.Text = "放大";
+            this.button1.Text = "enlarge";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.enlarge_Click);
             // 
@@ -226,7 +237,7 @@
             this.buttonOpenImageFolder.Name = "buttonOpenImageFolder";
             this.buttonOpenImageFolder.Size = new System.Drawing.Size(110, 19);
             this.buttonOpenImageFolder.TabIndex = 26;
-            this.buttonOpenImageFolder.Text = "打开图片文件夹";
+            this.buttonOpenImageFolder.Text = "Open folder";
             this.buttonOpenImageFolder.UseVisualStyleBackColor = true;
             this.buttonOpenImageFolder.Click += new System.EventHandler(this.buttonOpenImageFolder_Click);
             // 
@@ -238,7 +249,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(53, 12);
             this.label5.TabIndex = 22;
-            this.label5.Text = "标注信息";
+            this.label5.Text = "Box information";
             // 
             // buttonImport
             // 
@@ -309,7 +320,7 @@
             this.checkBox1.Size = new System.Drawing.Size(59, 16);
             this.checkBox1.TabIndex = 2;
             this.checkBox1.TabStop = true;
-            this.checkBox1.Text = "无遮挡";
+            this.checkBox1.Text = "no occlude";
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.Visible = false;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
@@ -324,7 +335,7 @@
             this.checkBox2.Size = new System.Drawing.Size(71, 16);
             this.checkBox2.TabIndex = 42;
             this.checkBox2.TabStop = true;
-            this.checkBox2.Text = "同队遮挡";
+            this.checkBox2.Text = "SOC";
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
@@ -338,7 +349,7 @@
             this.checkBox3.Size = new System.Drawing.Size(71, 16);
             this.checkBox3.TabIndex = 43;
             this.checkBox3.TabStop = true;
-            this.checkBox3.Text = "异队遮挡";
+            this.checkBox3.Text = "DOC";
             this.checkBox3.UseVisualStyleBackColor = true;
             this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
@@ -352,7 +363,7 @@
             this.radioButton4.Size = new System.Drawing.Size(71, 16);
             this.radioButton4.TabIndex = 44;
             this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "多人遮挡";
+            this.radioButton4.Text = "MOC";
             this.radioButton4.UseVisualStyleBackColor = true;
             this.radioButton4.Visible = false;
             this.radioButton4.CheckedChanged += new System.EventHandler(this.radioButton4_CheckedChanged);
@@ -366,7 +377,7 @@
             this.checkBox5.Size = new System.Drawing.Size(71, 16);
             this.checkBox5.TabIndex = 44;
             this.checkBox5.TabStop = true;
-            this.checkBox5.Text = "部分遮挡";
+            this.checkBox5.Text = "POC";
             this.checkBox5.UseVisualStyleBackColor = true;
             this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
 
@@ -379,7 +390,7 @@
             this.checkBox6.Size = new System.Drawing.Size(71, 16);
             this.checkBox6.TabIndex = 44;
             this.checkBox6.TabStop = true;
-            this.checkBox6.Text = "完全遮挡";
+            this.checkBox6.Text = "FOC";
             this.checkBox6.UseVisualStyleBackColor = true;
             this.checkBox6.CheckedChanged += new System.EventHandler(this.checkBox6_CheckedChanged);
 
@@ -392,7 +403,7 @@
             this.checkBox7.Size = new System.Drawing.Size(71, 16);
             this.checkBox7.TabIndex = 44;
             this.checkBox7.TabStop = true;
-            this.checkBox7.Text = "运动模糊";
+            this.checkBox7.Text = "MB ";
             this.checkBox7.UseVisualStyleBackColor = true;
             this.checkBox7.CheckedChanged += new System.EventHandler(this.checkBox7_CheckedChanged);
 
@@ -405,7 +416,7 @@
             this.checkBox8.Size = new System.Drawing.Size(71, 16);
             this.checkBox8.TabIndex = 44;
             this.checkBox8.TabStop = true;
-            this.checkBox8.Text = "球员旋转";
+            this.checkBox8.Text = "ROT";
             this.checkBox8.UseVisualStyleBackColor = true;
             this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
 
@@ -418,7 +429,7 @@
             this.checkBox9.Size = new System.Drawing.Size(71, 16);
             this.checkBox9.TabIndex = 44;
             this.checkBox9.TabStop = true;
-            this.checkBox9.Text = "球员形变";
+            this.checkBox9.Text = "DEF";
             this.checkBox9.UseVisualStyleBackColor = true;
             this.checkBox9.CheckedChanged += new System.EventHandler(this.checkBox9_CheckedChanged);
 
@@ -431,7 +442,7 @@
             this.checkBox10.Size = new System.Drawing.Size(71, 16);
             this.checkBox10.TabIndex = 44;
             this.checkBox10.TabStop = true;
-            this.checkBox10.Text = "球员消失";
+            this.checkBox10.Text = "OV ";
             this.checkBox10.UseVisualStyleBackColor = true;
             this.checkBox10.CheckedChanged += new System.EventHandler(this.checkBox10_CheckedChanged);
 
@@ -588,6 +599,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button reset;
         private System.Windows.Forms.Button clearBox; // 去框
+        private System.Windows.Forms.Button inheritBox; // 继承
         private System.Windows.Forms.Button genFile; // 生成两个目标文件
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.CheckBox checkBox1; // 无遮挡

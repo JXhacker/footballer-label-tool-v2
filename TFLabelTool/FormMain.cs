@@ -20,18 +20,18 @@ namespace TFLabelTool
 {
     public partial class FormMain : Form
     {
-        string ocFile_ = "oc.txt";               // 球员中心坐标文件
-        string imagePath_ = "";                  // 标注图像路径
-        string selectedpath = "";                //文件选择时的路径
-        string absentPath = "";                 // absent标注文件所在位置
-        string attributePath = "";              // attribute标注文件所在位置
-        string groundtruthPath = "";            // groundtruth8标框文件所在位置
-        string imagefoldername = "";               //存图片的那个文件夹的名字
-        string labelPath = "";                  //存放标记信息的位置
+        string ocFile_ = "oc.txt";               
+        string imagePath_ = "";                  
+        string selectedpath = "";                
+        string absentPath = "";                 
+        string attributePath = "";              
+        string groundtruthPath = "";            
+        string imagefoldername = "";               
+        string labelPath = "";                  
 
-        int zoom_ = 1;                           // 缩放比例  
+        int zoom_ = 1;                           // scale
 
-        //string currentJPGName_ = "";             // 当前图片名称
+        //string currentJPGName_ = "";             
 
         
         
@@ -40,13 +40,13 @@ namespace TFLabelTool
         int prelistBoxFileIndex_ = -1;
         //bool islistBoxFileIndexChanged_ = false;
 
-        // 构造函数
+        // Constructor
         public FormMain()
         {
             InitializeComponent();
         }
 
-        // 主窗口加载
+        // Main window loading
         private void FormMain_Load(object sender, EventArgs e)
         {
             if (imagePath_ == "")
@@ -93,8 +93,8 @@ namespace TFLabelTool
             }
             else
             {
-                MessageBox.Show("sequence目录必须有并且图片文件必须放在sequence/xx/目录下");
-                return;// 目录结构不正确直接退出
+                MessageBox.Show("The sequence directory must exist and the picture file must be placed in the sequence/xx/ directory");
+                return;// The directory structure is incorrect and exit directly
             }
 
 
@@ -103,13 +103,13 @@ namespace TFLabelTool
                 Directory.CreateDirectory(imagePath_);
             }
 
-            LoadFiles();            // 加载图片
-            LoadGroundTruthFiles(); // 加载groundtruth.txt
-            LoadLabelFiles();       // 加载label.txt
+            LoadFiles();            // Load picture
+            LoadGroundTruthFiles(); // load groundtruth.txt
+            LoadLabelFiles();       // load label.txt
 
         }
 
-        // 加载image路径下的所有图像
+        // Load all images in the image path
         void LoadFiles()
         {
             listBoxFiles.Items.Clear();
@@ -121,19 +121,19 @@ namespace TFLabelTool
             }
         }
 
-        // 加载groundtruth.txt
+        // load groundtruth.txt
         private void LoadGroundTruthFiles()
         {
             var txt = groundtruthPath + imagefoldername;
 
-            if (File.Exists(txt))   // 如果文件存在，直接返回
+            if (File.Exists(txt))   // If the file exists, return directly
             {
                 return;
             }
 
             string context = "0,0,0,0,0,0,0,0";
 
-            // 初始化文件
+            // Initialization files
             FileStream _file = new FileStream(@txt, FileMode.Create, FileAccess.ReadWrite);
             using (StreamWriter writer1 = new StreamWriter(_file))
             {
@@ -148,17 +148,17 @@ namespace TFLabelTool
             }
         }
 
-        // 加载label.txt
+        // load label.txt
         private void LoadLabelFiles()
         {
             var txt = labelPath + imagefoldername;
 
-            if (File.Exists(txt))   // 如果文件存在，直接返回
+            if (File.Exists(txt))   // If the file exists, return directly
             {
                 return;
             }
 
-            // 初始化文件
+            //Initialization file
             FileStream _file = new FileStream(@txt, FileMode.Create, FileAccess.ReadWrite);
             using (StreamWriter writer1 = new StreamWriter(_file))
             {
@@ -174,13 +174,13 @@ namespace TFLabelTool
         }
 
 
-        // 保存groundtruth.txt
+        // save groundtruth.txt
         void SaveGroundTruthFile()
         {
             var txt = groundtruthPath + imagefoldername;
             File.Delete(txt);
             var content = "";
-            foreach (var item in listBoxLable.Items)    // 从listBoxLabel控件中加载信息
+            foreach (var item in listBoxLable.Items)    // Load information from the listBoxLabel control
             {
                 content += item + "\n";
             }
@@ -193,7 +193,7 @@ namespace TFLabelTool
             {
                 System.Drawing.Image sourImage = bitmap;
                 int width = 0, height = 0;
-                //按比例缩放             
+                //Scaling             
                 int sourWidth = sourImage.Width;
                 int sourHeight = sourImage.Height;
                 if (sourHeight > destHeight || sourWidth > destWidth)
@@ -217,14 +217,14 @@ namespace TFLabelTool
                 Bitmap destBitmap = new Bitmap(destWidth, destHeight);
                 Graphics g = Graphics.FromImage(destBitmap);
                 g.Clear(Color.Transparent);
-                //设置画布的描绘质量           
+                //Set the drawing quality of the canvas           
                 g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
                 g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
 
                 g.DrawImage(sourImage, new Rectangle((destWidth - width) / 2, (destHeight - height) / 2, width, height), 0, 0, sourImage.Width, sourImage.Height, GraphicsUnit.Pixel);
                 g.Dispose();
-                //设置压缩质量       
+                //Set compression quality     
                 System.Drawing.Imaging.EncoderParameters encoderParams = new System.Drawing.Imaging.EncoderParameters();
                 long[] quality = new long[1];
                 quality[0] = 100;
@@ -241,7 +241,7 @@ namespace TFLabelTool
 
 
 
-        // listBoxFiles控件选择文件时触发
+        // Triggered when the listBoxFiles control selects a file
         private void listBoxFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -268,7 +268,7 @@ namespace TFLabelTool
                 pictureBox1.Height = pictureBox1.Image.Height * zoom_;
 
 
-                // 刷新listBoxLabel 标注信息
+                // Refresh label information of listBoxLabel
                 listBoxLable.Items.Clear();
                 var txt = groundtruthPath + imagefoldername;
                 if (File.Exists(txt))
@@ -302,7 +302,7 @@ namespace TFLabelTool
 
                 }
 
-                ClearSelect();  // 删除之前选中的 重新画图
+                ClearSelect();  // Delete the previously selected redraw
                 if (listBoxLable.Items.Count > listBoxFiles.SelectedIndex)
                 {
                     listBoxLable.SelectedIndex = listBoxFiles.SelectedIndex;
@@ -314,7 +314,7 @@ namespace TFLabelTool
         }
 
         private Point RectStartPoint;
-        private Point[] pointCorner = new Point[4];//存储矩形的四个顶点
+        private Point[] pointCorner = new Point[4];//Store the four vertices of the rectangle
         private Point[] Rect1 = new Point[4];
         private Brush selectionBrush = new SolidBrush(Color.FromArgb(50, 72, 145, 220));
 
@@ -322,7 +322,7 @@ namespace TFLabelTool
 
         private void pictureBox1_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            // 画框
+            // Picture frame
             
                 RectStartPoint = e.Location;
                 Invalidate();
@@ -333,10 +333,10 @@ namespace TFLabelTool
         {
 
 
-            if (e.Button != MouseButtons.Left)//判断是否按下左键
+            if (e.Button != MouseButtons.Left)//Determine whether press the left button
                 return;
                     
-            Point tempEndPoint = e.Location; //记录框的位置和大小
+            Point tempEndPoint = e.Location; //Record the position and size of the box
             Rect1[0].X = RectStartPoint.X;
             Rect1[0].Y = RectStartPoint.Y;
             Rect1[1].X = tempEndPoint.X;
@@ -360,7 +360,7 @@ namespace TFLabelTool
                     if (Rect1[0] != null && Rect1[0].X > 0 && Rect1[0].Y > 0)
                     {
 
-                        e.Graphics.DrawPolygon(new Pen(Color.Red, 3), Rect1);//重新绘制颜色为红色
+                        e.Graphics.DrawPolygon(new Pen(Color.Red, 3), Rect1);//Repaint the color to red
             
                     }
                 }              
@@ -391,7 +391,7 @@ namespace TFLabelTool
 
                     if (RectStartPoint.X > e.Location.X || RectStartPoint.Y > e.Location.Y)
                     {
-                        MessageBox.Show("只能从左上向右下选");
+                        MessageBox.Show("Only select from top left to bottom right");
                         ClearSelect();
                         return;
                     }
@@ -406,7 +406,7 @@ namespace TFLabelTool
                     {
                         if (listBoxLable.Items.Count < listBoxFiles.SelectedIndex)
                         {
-                            MessageBox.Show("需要按图片顺序进行标注！");
+                            MessageBox.Show("Need to mark in order of pictures!");
                             ClearSelect();
                             return;
                         }
@@ -479,7 +479,7 @@ namespace TFLabelTool
         private void buttonImport_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog dilog = new FolderBrowserDialog();
-            dilog.Description = "请选择文件夹";
+            dilog.Description = "Please select a folder";
             if (dilog.ShowDialog() == DialogResult.OK || dilog.ShowDialog() == DialogResult.Yes)
             {
                selectedpath = dilog.SelectedPath;
@@ -525,7 +525,7 @@ namespace TFLabelTool
                 {
                     var items = line.Split(',');
                     MessageBox.Show(String.Format("x1={0},y1={1}\nx2={2},y2={3}\nx3={4},y3={5}\nx4={6},y4={7}\n",
-                        items[0], items[1], items[2], items[3],items[4], items[5], items[6], items[7]), "样本标注信息");
+                        items[0], items[1], items[2], items[3],items[4], items[5], items[6], items[7]), "Sample label information");
                 }
             }
         }
@@ -571,7 +571,7 @@ namespace TFLabelTool
         }
 
 
-        // 处理一些键盘操作
+        // Handle some keyboard operations
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (listBoxFiles.SelectedItem == null)
@@ -580,7 +580,7 @@ namespace TFLabelTool
             }
 
             if (keyData != Keys.NumPad8 && keyData != Keys.NumPad5 && keyData != Keys.NumPad4 && keyData != Keys.NumPad6 && keyData != Keys.I && keyData != Keys.J && keyData != Keys.K && keyData != Keys.L
-                && keyData != Keys.S && keyData != Keys.Z && keyData != Keys.X && keyData != Keys.C && keyData != Keys.Up && keyData != Keys.Down && keyData != Keys.Left && keyData != Keys.Right && keyData != Keys.Q && keyData != Keys.W)
+                && keyData != Keys.S && keyData != Keys.Z && keyData != Keys.X && keyData != Keys.C && keyData != Keys.V && keyData != Keys.Up && keyData != Keys.Down && keyData != Keys.Left && keyData != Keys.Right && keyData != Keys.Q && keyData != Keys.W)
             {
                 return base.ProcessCmdKey(ref msg, keyData); ;
             }
@@ -605,7 +605,7 @@ namespace TFLabelTool
                     double x0 = (x1 + x3) / 2;
                     double y0 = (y1 + y3) / 2;
                     double x02 = (x2 + x4) / 2;
-                    double y02 = (y2 + y4) / 2;//求矩形中心，求两个是因为减少因小数取整导致的误差。
+                    double y02 = (y2 + y4) / 2;//Find the center of the rectangle and find two because it reduces the error caused by the rounding of decimals.
 
                     double moveSteps = 1;
 
@@ -618,7 +618,7 @@ namespace TFLabelTool
                                 y3 -= moveSteps;
                                 y4 -= moveSteps;
                             } 
-                            break;     // 上
+                            break;     // up
                         case Keys.NumPad5:
                             { 
                                 y1 += moveSteps;
@@ -626,7 +626,7 @@ namespace TFLabelTool
                                 y3 += moveSteps;
                                 y4 += moveSteps;
                             } 
-                            break;     // 下
+                            break;     // down
                         case Keys.NumPad4: 
                             { 
                                 x1 -= moveSteps;
@@ -634,7 +634,7 @@ namespace TFLabelTool
                                 x3 -= moveSteps;
                                 x4 -= moveSteps;
                             } 
-                            break;      // 左 
+                            break;      // left 
                         case Keys.NumPad6: 
                             { 
                                 x1 += moveSteps;
@@ -642,7 +642,7 @@ namespace TFLabelTool
                                 x3 += moveSteps;
                                 x4 += moveSteps;
                             } 
-                            break;      // 右
+                            break;      // right
                         case Keys.I:
                             {
                                 y1 -= moveSteps;
@@ -677,7 +677,7 @@ namespace TFLabelTool
                             break;
                         case Keys.S: 
                             { 
-                                x4 = x4 - (x4 - x1) / (Math.Sqrt(Math.Pow((x4 - x1), 2) + Math.Pow((y4 - y1), 2)));//两倍扩大
+                                x4 = x4 - (x4 - x1) / (Math.Sqrt(Math.Pow((x4 - x1), 2) + Math.Pow((y4 - y1), 2)));
                                 y4 = y4 - (y4 - y1) / (Math.Sqrt(Math.Pow((x4 - x1), 2) + Math.Pow((y4 - y1), 2)));
                                 x3 = x3 - (x3 - x2) / (Math.Sqrt(Math.Pow((x3 - x2), 2) + Math.Pow((y3 - y2), 2)));
                                 y3 = y3 - (y3 - y2) / (Math.Sqrt(Math.Pow((x3 - x2), 2) + Math.Pow((y3 - y2), 2)));
@@ -685,7 +685,7 @@ namespace TFLabelTool
                             break;// w
                         case Keys.X: 
                             {  
-                                x4 = x4 + (x4 - x1) / (Math.Sqrt(Math.Pow((x4 - x1), 2) + Math.Pow((y4 - y1), 2)));//两倍扩大
+                                x4 = x4 + (x4 - x1) / (Math.Sqrt(Math.Pow((x4 - x1), 2) + Math.Pow((y4 - y1), 2)));
                                 y4 = y4 + (y4 - y1) / (Math.Sqrt(Math.Pow((x4 - x1), 2) + Math.Pow((y4 - y1), 2)));
                                 x3 = x3 + (x3 - x2) / (Math.Sqrt(Math.Pow((x3 - x2), 2) + Math.Pow((y3 - y2), 2)));
                                 y3 = y3 + (y3 - y2) / (Math.Sqrt(Math.Pow((x3 - x2), 2) + Math.Pow((y3 - y2), 2)));
@@ -693,7 +693,7 @@ namespace TFLabelTool
                             break;     // s
                         case Keys.Z: 
                             { 
-                                x2 = x2 - (x2 - x1) / (Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2)));//两倍扩大
+                                x2 = x2 - (x2 - x1) / (Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2)));
                                 y2 = y2 - (y2 - y1) / (Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2)));
                                 x3 = x3 - (x3 - x4) / (Math.Sqrt(Math.Pow((x3 - x4), 2) + Math.Pow((y3 - y4), 2)));
                                 y3 = y3 - (y3 - y4) / (Math.Sqrt(Math.Pow((x3 - x4), 2) + Math.Pow((y3 - y4), 2)));
@@ -701,7 +701,15 @@ namespace TFLabelTool
                             break;      // a 
                         case Keys.C: 
                             { 
-                                x2 = x2 + (x2 - x1) / (Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2)));//两倍扩大
+                                x2 = x2 + (x2 - x1) / (Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2)));
+                                y2 = y2 + (y2 - y1) / (Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2)));
+                                x3 = x3 + (x3 - x4) / (Math.Sqrt(Math.Pow((x3 - x4), 2) + Math.Pow((y3 - y4), 2)));
+                                y3 = y3 + (y3 - y4) / (Math.Sqrt(Math.Pow((x3 - x4), 2) + Math.Pow((y3 - y4), 2)));
+                            } 
+                            break;      // d
+                        case Keys.V: 
+                            { 
+                                x2 = x2 + (x2 - x1) / (Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2)));
                                 y2 = y2 + (y2 - y1) / (Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2)));
                                 x3 = x3 + (x3 - x4) / (Math.Sqrt(Math.Pow((x3 - x4), 2) + Math.Pow((y3 - y4), 2)));
                                 y3 = y3 + (y3 - y4) / (Math.Sqrt(Math.Pow((x3 - x4), 2) + Math.Pow((y3 - y4), 2)));
@@ -711,7 +719,7 @@ namespace TFLabelTool
                             {
                                 double temp_x = x1;
                                 double adjustAngle = 3;
-                                x1 = (x1 - x0) * Math.Cos(-Math.PI / 180.0 * adjustAngle) - (y1 - y0) * Math.Sin(-Math.PI / 180.0 * adjustAngle) + x0; // 10表示每次调整10°
+                                x1 = (x1 - x0) * Math.Cos(-Math.PI / 180.0 * adjustAngle) - (y1 - y0) * Math.Sin(-Math.PI / 180.0 * adjustAngle) + x0;
                                 y1 = (temp_x - x0) * Math.Sin(-Math.PI / 180.0 * adjustAngle) + (y1 - y0) * Math.Cos(-Math.PI / 180.0 * adjustAngle) + y0; //
                                 temp_x = x2;
                                 x2 = (x2 - x02) * Math.Cos(-Math.PI / 180.0 * adjustAngle) - (y2 - y02) * Math.Sin(-Math.PI / 180.0 * adjustAngle) + x02; //
@@ -723,7 +731,7 @@ namespace TFLabelTool
                                 x4 = (x4 - x02) * Math.Cos(-Math.PI / 180.0 * adjustAngle) - (y4 - y02) * Math.Sin(-Math.PI / 180.0 * adjustAngle) + x02; //
                                 y4 = (temp_x - x02) * Math.Sin(-Math.PI / 180.0 * adjustAngle) + (y4 - y02) * Math.Cos(-Math.PI / 180.0 * adjustAngle) + y02; //
                             }
-                            break;//逆时针旋转
+                            break;
                         case Keys.W:
                             {
                                 double temp_x = x1;
@@ -740,27 +748,27 @@ namespace TFLabelTool
                                 x4 = (x4 - x02) * Math.Cos(Math.PI / 180.0 * adjustAngle) - (y4 - y02) * Math.Sin(Math.PI / 180.0 * adjustAngle) + x02; //
                                 y4 = (temp_x - x02) * Math.Sin(Math.PI / 180.0 * adjustAngle) + (y4 - y02) * Math.Cos(Math.PI / 180.0 * adjustAngle) + y02; //
                             }
-                            break;//顺时针旋转
-                        case Keys.Up:
-                            if (this.listBoxFiles.SelectedIndex > 0)
-                            {
-                                this.listBoxFiles.SelectedIndex = this.listBoxFiles.SelectedIndex - 1;
-                            }
-                            else
-                            {
-                                this.listBoxFiles.SelectedIndex = 0;
-                            }
                             break;
-                        case Keys.Down:
-                            if (this.listBoxFiles.SelectedIndex < this.listBoxFiles.Items.Count - 1)
-                            {
-                                this.listBoxFiles.SelectedIndex = this.listBoxFiles.SelectedIndex + 1;
-                            }
-                            else
-                            {
-                                this.listBoxFiles.SelectedIndex = this.listBoxFiles.Items.Count - 1;
-                            }
-                            break;
+                        //case Keys.Up:
+                            //if (this.listBoxFiles.SelectedIndex > 0)
+                            //{
+                                //this.listBoxFiles.SelectedIndex = this.listBoxFiles.SelectedIndex - 1;
+                            //}
+                            //else
+                            //{
+                            //    this.listBoxFiles.SelectedIndex = 0;
+                            //}
+                            //break;
+                        //case Keys.Down:
+                            //if (this.listBoxFiles.SelectedIndex < this.listBoxFiles.Items.Count - 1)
+                            //{
+                            //    this.listBoxFiles.SelectedIndex = this.listBoxFiles.SelectedIndex + 1;
+                            //}
+                            //else
+                            //{
+                            //    this.listBoxFiles.SelectedIndex = this.listBoxFiles.Items.Count - 1;
+                            //}
+                            //break;
                         case Keys.Left:
                             if (this.listBoxFiles.SelectedIndex > 0)
                             {
@@ -783,7 +791,7 @@ namespace TFLabelTool
                             break;
                     }
 
-                    // 如果有小数就取整
+                    
                     x1 = Math.Round(x1);
                     y1 = Math.Round(y1);
                     x2 = Math.Round(x2);
@@ -793,25 +801,30 @@ namespace TFLabelTool
                     x4 = Math.Round(x4);
                     y4 = Math.Round(y4);
 
-                    // 临界值判断
+                    // Critical value judgment
                     int widthTmp = pictureBox1.Image.Width;
                     int heightTmp = pictureBox1.Image.Height;
 
                     if (((x1 <= 0 || x2 <= 0 || x3 <= 0 || x4 <= 0 || y1 <= 0 || y2 <= 0 || y3 <= 0 || y4 <= 0 ) && !(x1 == 0 && x2 == 0))|| x1 >= widthTmp || x2 >= widthTmp || x3 >= widthTmp || x4 >= widthTmp || y1 >= heightTmp || y2 >= heightTmp || y3 >= heightTmp || y4 >= heightTmp)
                     {
-                        MessageBox.Show("标框出界！");
+                        MessageBox.Show("box out of bounds!");
                         return false;
                     }
 
-                    if (keyData == Keys.Up || keyData == Keys.Down || keyData == Keys.Left || keyData == Keys.Right)
+                    if (keyData == Keys.Up || keyData == Keys.Down || keyData == Keys.Right || keyData == Keys.Left)
                     {
                         listBoxFiles_SelectedIndexChanged(null, null);
-                        return base.ProcessCmdKey(ref msg, keyData); ;
+                        return base.ProcessCmdKey(ref msg, keyData);
                     }
 
+
                     if (listBoxLable.Items.Count > listBoxFiles.SelectedIndex)
-                        listBoxLable.Items.RemoveAt(listBoxFiles.SelectedIndex);
-                    listBoxLable.Items.Insert(listBoxFiles.SelectedIndex, String.Format("{0},{1},{2},{3},{4},{5},{6},{7}", x1, y1, x2, y2, x3, y3, x4, y4));
+                        {
+                            listBoxLable.Items.RemoveAt(listBoxFiles.SelectedIndex);
+                            listBoxLable.Items.Insert(listBoxFiles.SelectedIndex, String.Format("{0},{1},{2},{3},{4},{5},{6},{7}", x1, y1, x2, y2, x3, y3, x4, y4));
+                        }
+                        
+                    
                     SaveGroundTruthFile();
                     
                   
@@ -863,7 +876,7 @@ namespace TFLabelTool
             zoom_ *= 2;
             pictureBox1.Width = pictureBox1.Width * 2;
             pictureBox1.Height = pictureBox1.Height * 2;
-            ClearSelect();  // 删除之前选中的   
+            ClearSelect();  // Delete previously selected
             scaleRect();
         }
 
@@ -882,7 +895,7 @@ namespace TFLabelTool
                 scaleRect();
             }
         }
-        // 按位置修改label
+        // Modify label by location
         void SaveLabelFile(string s,string status)
         {
             var txt = labelPath + imagefoldername;
@@ -936,7 +949,7 @@ namespace TFLabelTool
 
         }
  
-        //整行修改label文件
+        //Modify the label file for the entire line
         void SaveLabelFile2(string s)
         {
             var txt = labelPath + imagefoldername;
@@ -1036,7 +1049,7 @@ namespace TFLabelTool
                 if (checkBox6.Checked || checkBox10.Checked)
                 {
                     checkBox5.CheckState = CheckState.Unchecked;
-                    MessageBox.Show("完全遮挡或者球员消失不能勾选部分遮挡");
+                    MessageBox.Show("Partial occlusion cannot be checked for complete occlusion or disappearance of the player");
                     return;
                 }
                 SaveLabelFile("3", "1");
@@ -1055,10 +1068,10 @@ namespace TFLabelTool
                 if(checkBox5.Checked || checkBox10.Checked)
                 {
                     checkBox6.CheckState = CheckState.Unchecked;
-                    MessageBox.Show("勾选部分遮挡或者球员消失不能勾选完全遮挡");
+                    MessageBox.Show("Check Partial Occlusion or Player Disappearance Cannot check Full Occlusion");
                     return;
                 }
-                clearBox_Click(null, null);// 清除框选
+                clearBox_Click(null, null);// clear box
                 SaveLabelFile("4", "1");
             }else{
                 SaveLabelFile("4", "0");
@@ -1114,7 +1127,7 @@ namespace TFLabelTool
                 if (checkBox5.Checked || checkBox6.Checked)
                 {
                     checkBox10.CheckState = CheckState.Unchecked;
-                    MessageBox.Show("勾选部分遮挡或完全遮挡不能勾选球员消失");
+                    MessageBox.Show("Check Partial Blocking or Full Blocking Can not check the player disappear");
                     return;
                 }
                 clearBox_Click(null, null);
@@ -1138,7 +1151,7 @@ namespace TFLabelTool
             }
         }
 
-        // 加载Label选项
+        // Load Label option
         private void LoadLabel(int index)
         {
             var txt = labelPath + imagefoldername;
@@ -1214,9 +1227,9 @@ namespace TFLabelTool
             }
             else
             {
-                MessageBox.Show("无数据");
+                MessageBox.Show("no data");
                 //this.checkBox1.Select();
-                //SaveLabelFile("0" , "1");//目标行没有数据默认为无遮挡
+                //SaveLabelFile("0" , "1");//The target row has no data and the default is no occlusion
             }
         }
 
@@ -1227,9 +1240,10 @@ namespace TFLabelTool
             listBoxFiles_SelectedIndexChanged(null, null);
         }
 
+        // clear box
         private void clearBox_Click(object sender, EventArgs e)
         {
-            // 刷新listBoxLabel 标注信息
+            // Refresh label information of listBoxLabel
             listBoxLable.Items.Clear();
             var txt = groundtruthPath + imagefoldername;
             if (File.Exists(txt))
@@ -1254,13 +1268,46 @@ namespace TFLabelTool
             ClearSelect();
         }
 
+        // Inherit the previous frame
+        private void inheritBox_Click(object sender, EventArgs e)
+        {
+            if (listBoxFiles.SelectedIndex == 0)
+            {
+                MessageBox.Show("Cannot be inherited without the previous frame");
+                return;
+            }
+            // Refresh label information of listBoxLabel
+            listBoxLable.Items.Clear();
+            var txt = groundtruthPath + imagefoldername;
+            if (File.Exists(txt))
+            {
+                int cnt = 0;
+                var lastFrame = "0,0,0,0,0,0,0,0";
+                foreach (var item in File.ReadAllLines(txt.Trim()))
+                {
+                    if (cnt++ == listBoxFiles.SelectedIndex)
+                    {
+                        listBoxLable.Items.Add(lastFrame);
+                    }
+                    else
+                    {
+                        listBoxLable.Items.Add(item);
+                    } 
+                    lastFrame = item;
+                }
+                SaveGroundTruthFile();
+            }
+            listBoxFiles_SelectedIndexChanged(null, null);
+        }
+
+
         // 
         private void genFile_Click(object sender, EventArgs e)
         {
             var txt = labelPath + imagefoldername;
             if (labelPath == "" || imagefoldername == "" || !File.Exists(txt))
             {
-                MessageBox.Show("请先选择图像数据集");
+                MessageBox.Show("Please select an image dataset first");
                 return;
             }
             string line;
@@ -1360,7 +1407,7 @@ namespace TFLabelTool
         }
 
 
-        // 表格关闭情况下的一些操作
+        // Some operations when the form is closed
         private void Form_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (this.checkBox2.Checked || this.checkBox3.Checked || this.radioButton4.Checked)
@@ -1368,7 +1415,7 @@ namespace TFLabelTool
                 if (OcPoints.Count == 0)
                 {
                     this.listBoxFiles.SelectedIndex = prelistBoxFileIndex_;
-                    MessageBox.Show("存在遮挡的情况下必须描点");
+                    MessageBox.Show("When there is occlusion, you must trace points");
                     e.Cancel = true;
                 }
             }

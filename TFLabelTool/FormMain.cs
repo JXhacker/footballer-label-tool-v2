@@ -241,6 +241,22 @@ namespace TFLabelTool
 
 
 
+        private int maxNum(int a, int b, int c, int d)
+        {
+            int m = a;
+            if (m < b) {m = b;}
+            if (m < c) {m = c;}
+            if (m < d) {m = d;}
+            return m;
+        }
+        private int minNum(int a, int b, int c, int d)
+        {
+            int m = a;
+            if (m > b) {m = b;}
+            if (m > c) {m = c;}
+            if (m > d) {m = d;}
+            return m;
+        }
         // Triggered when the listBoxFiles control selects a file
         private void listBoxFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -267,6 +283,7 @@ namespace TFLabelTool
                 pictureBox1.Width = pictureBox1.Image.Width * zoom_;
                 pictureBox1.Height = pictureBox1.Image.Height * zoom_;
 
+                this.cFrameLabel.Text = "Current Frame:" + Convert.ToString(listBoxFiles.SelectedIndex + 1);
 
                 // Refresh label information of listBoxLabel
                 listBoxLable.Items.Clear();
@@ -276,6 +293,7 @@ namespace TFLabelTool
                     int cnt = 0;
                     foreach (var item in File.ReadAllLines(txt.Trim()))
                     {
+                        var temp = item;
                         var cur = item.ToString().Split(',');
                         if (cnt++ == listBoxFiles.SelectedIndex && listBoxFiles.SelectedIndex != 0
                             && (Convert.ToInt32(cur[0]) == 0 && Convert.ToInt32(cur[1]) == 0 && Convert.ToInt32(cur[2]) == 0 && Convert.ToInt32(cur[3]) == 0))
@@ -285,16 +303,47 @@ namespace TFLabelTool
                             if ((Convert.ToInt32(it[0]) != 0 || Convert.ToInt32(it[1]) != 0) && !checkBox6.Checked && !checkBox10.Checked)
                             {
                                 listBoxLable.Items.Add(listBoxLable.Items[listBoxFiles.SelectedIndex - 1]);
+                                temp = (string)listBoxLable.Items[listBoxFiles.SelectedIndex - 1];
                             }
                             else
                             {
                                 listBoxLable.Items.Add(item);
                             }
+
                         }
                         else
                         {
                             listBoxLable.Items.Add(item);
-                        } 
+                        }
+                        if ((cnt-1) == listBoxFiles.SelectedIndex)
+                        {
+                            var loc = temp.ToString().Split(',');
+                            var x1 = Convert.ToInt32(loc[0]);
+                            var y1 = Convert.ToInt32(loc[1]);
+                            var x2 = Convert.ToInt32(loc[2]);
+                            var y2 = Convert.ToInt32(loc[3]);
+                            var x3 = Convert.ToInt32(loc[4]);
+                            var y3 = Convert.ToInt32(loc[5]);
+                            var x4 = Convert.ToInt32(loc[6]);
+                            var y4 = Convert.ToInt32(loc[7]);
+                            int maxX = maxNum(x1, x2, x3, x4);
+                            int maxY = maxNum(y1, y2, y3, y4);
+                            int minX = minNum(x1, x2, x3, x4);
+                            int minY = minNum(y1, y2, y3, y4);
+                            this.xTextBox.Text = Convert.ToString(minX);
+                            this.yTextBox.Text = Convert.ToString(minY);
+                            this.widthTextBox.Text = Convert.ToString(maxX - minX);
+                            this.heightTextBox.Text = Convert.ToString(maxY - minY);
+                            this.x1TextBox.Text = loc[0];
+                            this.y1TextBox.Text = loc[1];
+                            this.x2TextBox.Text = loc[2];
+                            this.y2TextBox.Text = loc[3];
+                            this.x3TextBox.Text = loc[4];
+                            this.y3TextBox.Text = loc[5];
+                            this.x4TextBox.Text = loc[6];
+                            this.y4TextBox.Text = loc[7];
+                        }
+                        
                     }
 
                     SaveGroundTruthFile();
@@ -486,7 +535,44 @@ namespace TFLabelTool
                imagePath_ = dilog.SelectedPath + "\\";
                FormMain_Load(null, null);
             }
-            
+            this.listBoxFiles.SelectedIndex = 0;
+            listBoxFiles_SelectedIndexChanged(null, null);
+            if (this.listBoxFiles != null)
+            {
+                this.tFrameLabel.Text = "Total Frame:" + Convert.ToString(this.listBoxFiles.Items.Count);
+                var tmp = imagePath_.Split('\\');
+                var l = tmp.Length;
+                if (l >= 2)
+                {
+                    var id = System.Text.RegularExpressions.Regex.Replace(tmp[l - 2], "[a-z]", "", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+                    this.nameLabel.Text = "Name:" + tmp[l - 2];
+                    this.idLabel.Text = "ID:" + id;
+                }
+                //MessageBox.Show(tmp[tmp.Length-2]);
+                if (l >= 4)
+                {
+                    if (tmp[l-4] == "multi-occlusion(211-240)")
+                    {
+                        this.typeLabel.Text = "Type:MOC";
+                    }
+                    else if(tmp[l-4] == "occlusion_different_team(151-180)")
+                    {
+                        this.typeLabel.Text = "Type:DOC";
+                    }
+                    else if(tmp[l-4] == "occlusion_same_team(121-150)")
+                    {
+                        this.typeLabel.Text = "Type:SOC";
+                    }
+                    else if(tmp[l-4] == "palyer-disappear(181-210)")
+                    {
+                        this.typeLabel.Text = "Type:OV";
+                    }
+                    else
+                    {
+                        this.typeLabel.Text = "Type:Undefind";
+                    }
+                }
+            }
 
         }
 
@@ -1382,6 +1468,7 @@ namespace TFLabelTool
 
         private void preListBoxFile_Click(object sender, EventArgs e)
         {
+            if (listBoxFiles.Items.Count == 0) {return;}//这里处理一个没导入图片点击pre的异常
             if (listBoxFiles.SelectedIndex > 0 && listBoxFiles.SelectedIndex < listBoxFiles.Items.Count)
             {
                 this.listBoxFiles.SelectedIndex = this.listBoxFiles.SelectedIndex - 1;

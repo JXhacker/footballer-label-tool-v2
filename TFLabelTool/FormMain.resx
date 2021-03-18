@@ -118,20 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="label7.Text" xml:space="preserve">
-    <value>Instructions
-
-1: Click the "open" button to import the image and import the jpg file into the program, but you need to pay attention to the imported image file must be stored in the sequences/xxx/ directory
-
-2: The left part of the window displays all pictures under the selected path, the middle part displays the selected picture, the right part displays the mark of the framed picture, and the lower right part indicates the four coordinate points of the frame
-
-3: The enlarge/shrink button is used to zoom the picture, the reset button will restore the size of the picture, the inherit button means to reuse the box of the previous frame,remove box button means removing box
-
-4: SOC:same team occlusion. DOC:different team occlusion. POC:partial occlusion. FOC:full occlusion. MB:motion blur. ROT:ritation. DEF:deformation. OV:out of view
-
-5: The specific operations of fine-tuning the box are: 8/I—Move up the box, 5/K—Move down the box, 4/J—Move the box left, 6/L—Move the box right.S—The height of the box decreases, X—The height of the box increases, Z—The width of the box decreases, and C—The width of the box increases.Q-box rotates counterclockwise P-box rotates clockwise (because the pixel coordinates are integers, rounding is performed during rotation (because the pixel coordinates are integers, errors in the rounding operation during the rotation process will cause the rotated frame to deform)
-
-6: All operations will be written to the file immediately after execution, no need to save
-
-7: If the absent, attribute, and groundtruth files do not exist, the corresponding files will be generated and initialized by default</value>
+    <value></value>
   </data>
 </root>
